@@ -20,7 +20,7 @@ class LeftSidebar extends Component {
                     <span class="left-sidebar-controls" id="add-undo-redo-box">
                         <AddBox 
                             id="add-list-button"
-                            className="material-icons todo_button"
+                            className="material-icons todo-button"
                             onClick={this.handleAddNewList} />
                     </span>
                 </div>
@@ -30,7 +30,9 @@ class LeftSidebar extends Component {
                         <ListLink
                             key={toDoList.id}
                             toDoList={toDoList}                                // PASS THE LIST TO THE CHILDREN
-                            loadToDoListCallback={this.props.loadToDoListCallback} />  // PASS THE CALLBACK TO THE CHILDREN
+                            loadToDoListCallback={this.props.loadToDoListCallback}  // PASS THE CALLBACK TO THE CHILDREN
+                            currentList={this.props.currentList}
+                        />
                     ))
                 }
                 </div>

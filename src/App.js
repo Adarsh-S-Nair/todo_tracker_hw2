@@ -87,7 +87,7 @@ class App extends Component {
 
   makeNewToDoList = () => {
     let newToDoList = {
-      id: this.highListId,
+      id: this.state.nextListId,
       name: 'Untitled',
       items: []
     };
@@ -117,12 +117,15 @@ class App extends Component {
     return (
       <div id="root">
         <Navbar />
-        <LeftSidebar 
-          toDoLists={this.state.toDoLists}
-          loadToDoListCallback={this.loadToDoList}
-          addNewListCallback={this.addNewList}
-        />
-        <Workspace toDoListItems={items} />
+        <div id="main">
+          <Workspace toDoListItems={items} />
+          <LeftSidebar 
+            toDoLists={this.state.toDoLists}
+            loadToDoListCallback={this.loadToDoList}
+            addNewListCallback={this.addNewList}
+            currentList={this.state.currentList}
+          />
+        </div>
       </div>
     );
   }

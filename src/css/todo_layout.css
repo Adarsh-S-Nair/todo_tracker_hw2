@@ -1,71 +1,76 @@
+body {
+    overflow: hidden;
+}
 #root {
     position:absolute;
-    width:98%;
-    left:1%;
+    padding: 3px;
+    width:100%;
     height:100%;
 }
 
 #navbar {
     position:absolute;
-    height: 50px;
-    top:0%;
-    left:0%;
-    width: 100%;
-    height: 5%;
-    margin:auto;
-    padding-left: 10px;
+    min-height: 40px;
+    width: 98.5%;
+    height: 4vh;
 }
 
 #title-div {
     position: absolute;
-    top:7px;
+    user-select: none;
+    padding: 1vh 1vw;
 }
 
 #left-sidebar {
+    text-align: center;
     position:absolute;
     height:94%;
-    width:13%;
-    top:5.5%;
-    left:0%;
-    padding-left: 15px;
+    width: 170px;
+    margin: 4.5vh 0vw;
 }
 
 #workspace {
     position:absolute;
     height:94%;
-    width:85.5%;
-    top:5.5%;
-    left:13%;
-    padding-left: 15px;
-    padding-right: 25px;
+    width: calc(97.5% - 170px);
+    margin: 4.5vh 0vw;
+    margin-left: 170px;
     grid-column: 2 span 1;
     grid-row: 2 span 1;
     display: flex;
     flex-direction: column;
+    padding-left: 15px;
 }
 
 #left-sidebar-header {
-    padding-top:25px;
-    height:4%;
+    user-select: none;
+    padding-left: 15px;
+    padding-top: 30px;
+    height: 45px;
     top:3%;
-    width: 80%;
+    width: 100%;
     display: grid;
     grid-template-columns: 60% 40%;
     white-space: nowrap;
 }
 
+#add-list-button {
+    margin-right: 20px;
+}
+
 #todo-lists-list {
+    overflow-x: auto;
     position:absolute;
     text-align: center;
-    height:80%;
+    height:90%;
     width:100%;
     top: 8%;
 }
 
 .todo-list-button {
-    padding-top:20px;
-    height: 60px;
-    width: 80%;
+    padding: 30px 0px;
+    height: auto;
+    width: 100%;
 }
 
 .todo-button {
@@ -76,9 +81,15 @@
     text-align: right;
 }
 
+[id^="input-list-"] {
+    padding: 30px 0px;
+    height: auto;
+    width: 100%;
+}
+
 #todo-list-header-card {
-    padding-top:25px;
-    height:30px;
+    padding-top: 30px;
+    height: 45px;
     width: 98%;
 }
 

@@ -30,18 +30,19 @@
 }
 
 #left-sidebar {
+    word-wrap: break-word;
     background-color: var(--swatch-complement);
     color: rgb(233,237,240);
 }
 
 #left-sidebar-header {
-    border-bottom: dotted;
+    border-bottom: solid;
     font-size: 14pt;
     font-weight: bold;
 }
 
 #todo-list-header-card {
-    border-bottom: dotted;
+    border-bottom: solid;
     font-size: 14pt;
     font-weight: bold;
 }
@@ -58,11 +59,11 @@
 }
 
 #todo-list-table-header {
-    border-bottom: dotted;
+    border-bottom: solid;
 }
 
 .list-header-card {
-    border-bottom: dotted;
+    border-bottom: solid;
 }
 
 .list-item-control {
@@ -87,7 +88,7 @@
 
 .todo-button {
     cursor:pointer;
-    background-color: var(--swatch-complement);
+    background-color: transparent;
     font-weight: bold;
 }
 
@@ -97,6 +98,21 @@
 
 #add-list-button {
     color: var(--swatch-accent);
+}
+
+[id^="input-list-"] {
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    border: none;
+    font: var(--font-primary);
+    font-weight: 700;
+    color: var(--swatch-text);
+    background-color: var(--swatch-complement);
+}
+
+[id^="todo-list-item-"]:hover{
+    background-color: var(--swatch-complement);
 }
 
 .status-incomplete {
