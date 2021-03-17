@@ -36,7 +36,9 @@ class Workspace extends Component {
                                 className="list-item-control material-icons todo-button"
                                 onClick={this.props.redoCallback}
                                 className={redoStyle}/>
-                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button" />
+                        <AddBox id="add-item-button" 
+                                className="list-item-control material-icons todo-button"
+                                onClick={this.props.addItemTransactionCallback}/>
                         <Delete id="delete-list-button" className="list-item-control material-icons todo-button" />
                         <Close id="close-list-button" className="list-item-control material-icons todo-button" />
                     </div>

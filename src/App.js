@@ -15,6 +15,7 @@ import ChangeStatus_Transaction from './transactions/ChangeStatus_Transaction'
 import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction'
 import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction'
 import DeleteItem_Transaction from './transactions/DeleteItem_Transaction'
+import AddItem_Transaction from './transactions/AddItem_Transaction'
 import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
@@ -102,6 +103,11 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
+  createAddItemTransaction = () => {
+    let transaction = new AddItem_Transaction(this);
+    this.tps.addTransaction(transaction);
+  }
+
   editTask = (item, task) => {
     let oldTask = item.description;
     item.description = task;
@@ -137,16 +143,20 @@ class App extends Component {
   deleteItem = (item) => {
     let index = this.state.currentList.items.findIndex(i => i.id === item.id);
     this.state.currentList.items.splice(index, 1);
+    console.log("Index: " + index);
     return index;
   }
 
   addItem = (item, index) => {
-    if(index) {
+    if(index || index == 0) {
       this.state.currentList.items.splice(index, 0, item);
     }
     else {
-      this.state.currentList.items.splice(this.state.currentList.items.length-1, 0, item);
+      item = this.makeNewToDoListItem();
+      this.state.currentList.items.splice(this.state.currentList.items.length, 0, item);
     }
+    this.forceUpdate();
+    return item;
   }
 
   changeListName = (name) => {
@@ -155,6 +165,7 @@ class App extends Component {
 
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
+    this.tps.clearAllTransactions();
     console.log("loading " + toDoList);
 
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
@@ -193,8 +204,9 @@ class App extends Component {
 
   makeNewToDoListItem = () =>  {
     let newToDoListItem = {
+      id: this.state.nextListItemId++,
       description: "No Description",
-      dueDate: "none",
+      due_date: "No Date",
       status: "incomplete"
     };
     return newToDoListItem;
@@ -237,6 +249,7 @@ class App extends Component {
             moveItemUpTransactionCallback={this.createMoveUpTransaction}
             moveItemDownTransactionCallback={this.createMoveDownTransaction}
             deleteItemTransactionCallback={this.createDeleteItemTransaction}
+            addItemTransactionCallback={this.createAddItemTransaction}
             undoCallback={this.undo}
             redoCallback={this.redo}
             tps={this.tps}
