@@ -52,6 +52,7 @@ class Workspace extends Component {
                             changeStatusTransactionCallback={this.props.changeStatusTransactionCallback}
                             moveItemUpTransactionCallback={this.props.moveItemUpTransactionCallback}
                             moveItemDownTransactionCallback={this.props.moveItemDownTransactionCallback}
+                            deleteItemTransactionCallback={this.props.deleteItemTransactionCallback}
                             workspace={this}
                             list={this.props.toDoListItems}
                         />))

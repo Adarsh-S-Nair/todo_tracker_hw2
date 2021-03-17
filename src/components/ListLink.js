@@ -5,6 +5,13 @@ import React, { Component } from 'react'
 class ListLink extends Component {
     constructor(props) {
         super(props);
+
+        this.listNameInputRef = React.createRef();
+
+        this.state = {
+            listName: props.toDoList.name,
+            editingName: false
+        }
         
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tListLink " + this.props.toDoList.key + " constructor");
@@ -15,62 +22,54 @@ class ListLink extends Component {
         console.log("\t\t\tListLink " + this.props.toDoList.key + " did mount");
     }
 
-    editListName = () => {
-        let lists = document.getElementById("todo-lists-list");
-        let listElement = document.getElementById("list-"+this.props.toDoList.id);
-        let input = document.createElement("input");
-        input.id = "input-list-"+this.props.toDoList.id;
-        input.value = this.props.toDoList.name;
-
-        input.onblur = () => {
-            if(input.value != this.props.toDoList.name){
-                if(input.value === ''){
-                    input.value = 'Untitled';
+    componentDidUpdate = () => {
+        if(this.state.editingName) {
+            this.listNameInputRef.current.focus();
+            this.listNameInputRef.current.addEventListener("keydown", (e) => {
+                if(e.keyCode === 13){
+                    e.target.blur();
                 }
-                this.props.toDoList.name = input.value;
-                listElement.innerText = this.props.toDoList.name;
-            }
-            lists.replaceChild(listElement, input);
+            })
         }
-        
-        lists.replaceChild(input, listElement)
-        input.focus();
-    }
-
-    handleLoadList = () => {
-        this.props.loadToDoListCallback(this.props.toDoList);
     }
 
     render() {
+        let isCurrentList = false;
+        if(this.props.currentList.id == this.props.toDoList.id){
+            isCurrentList = true;
+        }
         // DISPLAY WHERE WE ARE
-
-        let currentList = this.props.currentList;
-        let thisList = this.props.toDoList;
-
-        if(typeof currentList !== "undefined" && currentList.id == thisList.id){
-            console.log('hi');
-            return (
-                <div
-                    id={'list-'+thisList.id}
-                    style={{backgroundColor: '#40454e', color: "#ffc819"}}
-                    className='todo-list-button'
-                    onDoubleClick={this.editListName}
-                >
-                    {this.props.toDoList.name}<br />
+        let listElement =    <div
+                                id={"list-"+this.props.toDoList.id}
+                                className={isCurrentList ? "current-list" : "todo-list-button"}
+                                onClick={() => {
+                                    if(isCurrentList) { return; }
+                                    this.props.loadToDoListCallback(this.props.toDoList);
+                                }}
+                                onDoubleClick={() => {
+                                    if(!isCurrentList) { return; }
+                                    this.setState({editingName: true})
+                                }}>{this.props.toDoList.name}</div>        
+                                
+        let inputName = <input
+                        type="text"
+                        ref={this.listNameInputRef}
+                        id={"input-list-"+this.props.toDoList.id}
+                        className={"current-list"}
+                        defaultValue={this.props.toDoList.name}
+                        onBlur={() => {
+                            let name = this.listNameInputRef.current.value;
+                            if(name == '') name = 'Untitled';
+                            this.props.changeNameCallback(name);
+                            this.setState({
+                                listName: name,
+                                editingName: false
+                            })
+                        }}/>
+        return (<div>
+                    {this.state.editingName ? inputName : listElement}
                 </div>
-            )
-        }
-        else{
-            return (
-                <div
-                    id={'list-'+thisList.id}
-                    className='todo-list-button'
-                    onClick={this.handleLoadList}
-                >
-                    {this.props.toDoList.name}<br />
-                </div>
-            )
-        }
+        )
     }
 }
 

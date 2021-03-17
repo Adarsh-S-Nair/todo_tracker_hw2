@@ -67,6 +67,12 @@ body {
     top: 8%;
 }
 
+.current-list {
+    padding: 30px 0px;
+    height: auto;
+    width: 100%;
+}
+
 .todo-list-button {
     padding: 30px 0px;
     height: auto;

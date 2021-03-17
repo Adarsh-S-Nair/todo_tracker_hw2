@@ -41,6 +41,17 @@
     font-weight: bold;
 }
 
+.current-list {
+    cursor:pointer;
+    background-color: var(--swatch-primary);
+    font-weight: bold;
+    color: var(--swatch-accent);
+}
+
+.current-list:hover {
+    background-color: var(--swatch-contrast);
+}
+
 #todo-list-header-card {
     border-bottom: solid;
     font-size: 14pt;

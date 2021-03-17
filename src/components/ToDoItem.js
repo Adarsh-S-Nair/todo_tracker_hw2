@@ -33,12 +33,27 @@ class ToDoItem extends Component {
     componentDidUpdate = () => {
         if(this.state.editingDescription){
             this.descriptionInputRef.current.focus();
+            this.descriptionInputRef.current.addEventListener("keydown", (e) => {
+                if(e.keyCode === 13) {
+                    e.target.blur();
+                }
+            })
         }
         else if(this.state.editingDueDate){
             this.dueDateInputRef.current.focus();
+            this.dueDateInputRef.current.addEventListener("keydown", (e) => {
+                if(e.keyCode === 13) {
+                    e.target.blur();
+                }
+            })
         }
         else if(this.state.editingStatus){
             this.statusInputRef.current.focus();
+            this.statusInputRef.current.addEventListener("keydown", (e) => {
+                if(e.keyCode === 13) {
+                    e.target.blur();
+                }
+            })
         }
     }
 
@@ -47,7 +62,7 @@ class ToDoItem extends Component {
         console.log("\t\t\tToDoItem render");
         let listItem = this.props.toDoListItem;
         let statusType = "status-complete";
-        if (this.state.status === "incomplete")
+        if (listItem.status === "incomplete")
             statusType = "status-incomplete";
         
         let top = false;
@@ -159,7 +174,11 @@ class ToDoItem extends Component {
                                             this.props.moveItemDownTransactionCallback(listItem);
                                             this.props.workspace.forceUpdate();
                                         }}/>
-                    <Close className='list-item-control todo-button' />
+                    <Close className='list-item-control todo-button'
+                            onClick={() => {
+                                this.props.deleteItemTransactionCallback(listItem);
+                                this.props.workspace.forceUpdate();
+                            }}/>
                     <div className='list-item-control'></div>
         <div className='list-item-control'></div>
                 </div>

@@ -14,6 +14,7 @@ import ChangeDueDate_Transaction from './transactions/ChangeDueDate_Transaction'
 import ChangeStatus_Transaction from './transactions/ChangeStatus_Transaction'
 import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction'
 import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction'
+import DeleteItem_Transaction from './transactions/DeleteItem_Transaction'
 import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
@@ -96,6 +97,11 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
+  createDeleteItemTransaction = (item) => {
+    let transaction = new DeleteItem_Transaction(this, item);
+    this.tps.addTransaction(transaction);
+  }
+
   editTask = (item, task) => {
     let oldTask = item.description;
     item.description = task;
@@ -126,6 +132,25 @@ class App extends Component {
     let temp = this.state.currentList.items[index+1];
     this.state.currentList.items[index+1] = item;
     this.state.currentList.items[index] = temp;
+  }
+
+  deleteItem = (item) => {
+    let index = this.state.currentList.items.findIndex(i => i.id === item.id);
+    this.state.currentList.items.splice(index, 1);
+    return index;
+  }
+
+  addItem = (item, index) => {
+    if(index) {
+      this.state.currentList.items.splice(index, 0, item);
+    }
+    else {
+      this.state.currentList.items.splice(this.state.currentList.items.length-1, 0, item);
+    }
+  }
+
+  changeListName = (name) => {
+    this.state.currentList.name = name;
   }
 
   // WILL LOAD THE SELECTED LIST
@@ -211,6 +236,7 @@ class App extends Component {
             changeStatusTransactionCallback={this.createChangeStatusTransaction}
             moveItemUpTransactionCallback={this.createMoveUpTransaction}
             moveItemDownTransactionCallback={this.createMoveDownTransaction}
+            deleteItemTransactionCallback={this.createDeleteItemTransaction}
             undoCallback={this.undo}
             redoCallback={this.redo}
             tps={this.tps}
@@ -219,6 +245,7 @@ class App extends Component {
             toDoLists={this.state.toDoLists}
             loadToDoListCallback={this.loadToDoList}
             addNewListCallback={this.addNewList}
+            changeNameCallback={this.changeListName}
             currentList={this.state.currentList}
           />
         </div>
