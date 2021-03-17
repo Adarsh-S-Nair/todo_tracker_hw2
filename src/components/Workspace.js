@@ -48,6 +48,8 @@ class Workspace extends Component {
                             key={toDoListItem.id}
                             toDoListItem={toDoListItem}     // PASS THE ITEM TO THE CHILDREN
                             changeTaskTransactionCallback={this.props.changeTaskTransactionCallback}
+                            changeDueDateTransactionCallback={this.props.changeDueDateTransactionCallback}
+                            changeStatusTransactionCallback={this.props.changeStatusTransactionCallback}
                             workspace={this}
                         />))
                     }

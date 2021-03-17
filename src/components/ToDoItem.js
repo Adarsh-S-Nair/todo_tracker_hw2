@@ -87,10 +87,16 @@ class ToDoItem extends Component {
                             id={"input-date-"+listItem.id} 
                             className='item-col task-col'
                             onBlur={() => {
+                                let date = this.dueDateInputRef.current.value;
+                                if(date == ''){
+                                    date = 'No Date';
+                                }
+                                this.props.changeDueDateTransactionCallback(listItem, date);
                                 this.setState({
-                                    due_date: this.dueDateInputRef.current.value,
+                                    due_date: date,
                                     editingDueDate: false
                                 })
+                                this.props.workspace.forceUpdate();
                             }}/>;
 
         let statusElement = <div
@@ -107,10 +113,13 @@ class ToDoItem extends Component {
                             id={"input-status-"+listItem.id}
                             className='item-col task-col'
                             onBlur={() => {
+                                let status = this.statusInputRef.current.value;
+                                this.props.changeStatusTransactionCallback(listItem, status);
                                 this.setState({
-                                    status: this.statusInputRef.current.value,
+                                    status: status,
                                     editingStatus: false
                                 })
+                                this.props.workspace.forceUpdate();
                             }}>
                                 <option value="complete">complete</option>
                                 <option value="incomplete">incomplete</option>

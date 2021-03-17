@@ -10,6 +10,9 @@ import Workspace from './components/Workspace'
 
 // THESE ARE OUR TRANSACTIONS
 import ChangeTask_Transaction from './transactions/ChangeTask_Transaction'
+import ChangeDueDate_Transaction from './transactions/ChangeDueDate_Transaction'
+import ChangeStatus_Transaction from './transactions/ChangeStatus_Transaction'
+import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
@@ -67,10 +70,36 @@ class App extends Component {
     }
   }
 
+  createChangeDueDateTransaction = (item, date) => {
+    if(date != item.due_date){
+      let transaction = new ChangeDueDate_Transaction(this, item, date);
+      this.tps.addTransaction(transaction);
+    }
+  }
+
+  createChangeStatusTransaction = (item, status) => {
+    if(status != item.status){
+      let transaction = new ChangeStatus_Transaction(this, item, status);
+      this.tps.addTransaction(transaction);
+    }
+  }
+
   editTask = (item, task) => {
     let oldTask = item.description;
     item.description = task;
     return oldTask;
+  }
+
+  editDate = (item, date) => {
+    let oldDate = item.due_date;
+    item.due_date = date;
+    return oldDate;
+  }
+
+  editStatus = (item, status) => {
+    let oldStatus = item.status;
+    item.status = status;
+    return oldStatus;
   }
 
   // WILL LOAD THE SELECTED LIST
@@ -133,7 +162,6 @@ class App extends Component {
     if(this.tps.hasTransactionToUndo()){
       this.tps.undoTransaction();
     }
-    this.loadToDoList(this.state.currentList);
     this.forceUpdate();
   }
 
@@ -141,7 +169,7 @@ class App extends Component {
     if(this.tps.hasTransactionToRedo()){
       this.tps.doTransaction();
     }
-    this.loadToDoList(this.state.currentList);
+    this.forceUpdate();
   }
 
   render() {
@@ -153,6 +181,8 @@ class App extends Component {
           <Workspace 
             toDoListItems={items}
             changeTaskTransactionCallback={this.createChangeTaskTransaction}
+            changeDueDateTransactionCallback={this.createChangeDueDateTransaction}
+            changeStatusTransactionCallback={this.createChangeStatusTransaction}
             undoCallback={this.undo}
             redoCallback={this.redo}
             tps={this.tps}
