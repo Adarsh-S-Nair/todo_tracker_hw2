@@ -12,6 +12,8 @@ import Workspace from './components/Workspace'
 import ChangeTask_Transaction from './transactions/ChangeTask_Transaction'
 import ChangeDueDate_Transaction from './transactions/ChangeDueDate_Transaction'
 import ChangeStatus_Transaction from './transactions/ChangeStatus_Transaction'
+import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction'
+import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction'
 import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
@@ -84,6 +86,16 @@ class App extends Component {
     }
   }
 
+  createMoveUpTransaction = (item) => {
+    let transaction = new MoveItemUp_Transaction(this, item);
+    this.tps.addTransaction(transaction);
+  }
+
+  createMoveDownTransaction = (item) => {
+    let transaction = new MoveItemDown_Transaction(this, item);
+    this.tps.addTransaction(transaction);
+  }
+
   editTask = (item, task) => {
     let oldTask = item.description;
     item.description = task;
@@ -100,6 +112,20 @@ class App extends Component {
     let oldStatus = item.status;
     item.status = status;
     return oldStatus;
+  }
+
+  moveItemUp = (item) => {
+    let index = this.state.currentList.items.findIndex(i => i.id === item.id);
+    let temp = this.state.currentList.items[index-1];
+    this.state.currentList.items[index-1] = item;
+    this.state.currentList.items[index] = temp;
+  }
+
+  moveItemDown = (item) => {
+    let index = this.state.currentList.items.findIndex(i => i.id === item.id);
+    let temp = this.state.currentList.items[index+1];
+    this.state.currentList.items[index+1] = item;
+    this.state.currentList.items[index] = temp;
   }
 
   // WILL LOAD THE SELECTED LIST
@@ -183,6 +209,8 @@ class App extends Component {
             changeTaskTransactionCallback={this.createChangeTaskTransaction}
             changeDueDateTransactionCallback={this.createChangeDueDateTransaction}
             changeStatusTransactionCallback={this.createChangeStatusTransaction}
+            moveItemUpTransactionCallback={this.createMoveUpTransaction}
+            moveItemDownTransactionCallback={this.createMoveDownTransaction}
             undoCallback={this.undo}
             redoCallback={this.redo}
             tps={this.tps}

@@ -111,6 +111,7 @@
 }
 
 .enabled-button:hover {
+    filter: invert(0.6);
     cursor: pointer;
 }
 

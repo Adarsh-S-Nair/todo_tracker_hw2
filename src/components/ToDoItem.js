@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Close from '@material-ui/icons/Close';
-import { FormatLineSpacingSharp } from '@material-ui/icons';
+import { FormatLineSpacingSharp, InvertColorsOff } from '@material-ui/icons';
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -49,6 +49,20 @@ class ToDoItem extends Component {
         let statusType = "status-complete";
         if (this.state.status === "incomplete")
             statusType = "status-incomplete";
+        
+        let top = false;
+        let bottom = false;
+        let moveUpStyle = "enabled-button";
+        if(this.props.list[0].id == listItem.id){
+            top = true;
+            moveUpStyle = "disabled-button";
+        }
+
+        let moveDownStyle = "enabled-button";
+        if(this.props.list[this.props.list.length-1].id == listItem.id){
+            bottom = true;
+            moveDownStyle = "disabled-button";
+        }
 
         let taskElement = <div 
                             id={"task-"+listItem.id} 
@@ -131,8 +145,20 @@ class ToDoItem extends Component {
                 {this.state.editingDueDate ? inputDueDate : dateElement}
                 {this.state.editingStatus ? inputStatus : statusElement}
                 <div className='item-col list-controls-col'>
-                    <KeyboardArrowUp className='list-item-control todo-button' />
-                    <KeyboardArrowDown className='list-item-control todo-button' />
+                    <KeyboardArrowUp className='list-item-control todo-button'
+                                        className={moveUpStyle}
+                                        onClick={() => {
+                                            if(top) return;
+                                            this.props.moveItemUpTransactionCallback(listItem);
+                                            this.props.workspace.forceUpdate();
+                                        }}/>
+                    <KeyboardArrowDown className='list-item-control todo-button'
+                                        className={moveDownStyle}
+                                        onClick={() => {
+                                            if(bottom) return;
+                                            this.props.moveItemDownTransactionCallback(listItem);
+                                            this.props.workspace.forceUpdate();
+                                        }}/>
                     <Close className='list-item-control todo-button' />
                     <div className='list-item-control'></div>
         <div className='list-item-control'></div>

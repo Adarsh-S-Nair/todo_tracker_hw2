@@ -50,7 +50,10 @@ class Workspace extends Component {
                             changeTaskTransactionCallback={this.props.changeTaskTransactionCallback}
                             changeDueDateTransactionCallback={this.props.changeDueDateTransactionCallback}
                             changeStatusTransactionCallback={this.props.changeStatusTransactionCallback}
+                            moveItemUpTransactionCallback={this.props.moveItemUpTransactionCallback}
+                            moveItemDownTransactionCallback={this.props.moveItemDownTransactionCallback}
                             workspace={this}
+                            list={this.props.toDoListItems}
                         />))
                     }
                 </div>
