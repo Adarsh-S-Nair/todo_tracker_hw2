@@ -13,6 +13,14 @@ class Workspace extends Component {
     }
 
     render() {
+        let undoStyle = 'disabled-button';
+        let redoStyle = 'disabled-button';
+        if(this.props.tps.hasTransactionToUndo()){
+            undoStyle = "enabled-button";
+        }
+        if(this.props.tps.hasTransactionToRedo()){
+            redoStyle = "enabled-button";
+        }
         return (
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
@@ -20,8 +28,14 @@ class Workspace extends Component {
                     <div id="date-col-header" className="item-col">Due Date</div>
                     <div id="status-col-header" className="item-col">Status</div>
                     <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
-                        <Undo id="undo-button" className="list-item-control material-icons todo-button" />
-                        <Redo id="redo-button" className="list-item-control material-icons todo-button" />
+                        <Undo   id="undo-button" 
+                                className="list-item-control material-icons todo-button"
+                                onClick={this.props.undoCallback}
+                                className={undoStyle}/>
+                        <Redo   id="redo-button"
+                                className="list-item-control material-icons todo-button"
+                                onClick={this.props.redoCallback}
+                                className={redoStyle}/>
                         <AddBox id="add-item-button" className="list-item-control material-icons todo-button" />
                         <Delete id="delete-list-button" className="list-item-control material-icons todo-button" />
                         <Close id="close-list-button" className="list-item-control material-icons todo-button" />
@@ -33,6 +47,8 @@ class Workspace extends Component {
                         <ToDoItem
                             key={toDoListItem.id}
                             toDoListItem={toDoListItem}     // PASS THE ITEM TO THE CHILDREN
+                            changeTaskTransactionCallback={this.props.changeTaskTransactionCallback}
+                            workspace={this}
                         />))
                     }
                 </div>

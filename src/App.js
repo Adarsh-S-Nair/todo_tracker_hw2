@@ -7,6 +7,10 @@ import jsTPS from './common/jsTPS'
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
+
+// THESE ARE OUR TRANSACTIONS
+import ChangeTask_Transaction from './transactions/ChangeTask_Transaction'
+
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -54,6 +58,19 @@ class App extends Component {
       nextListItemId: highListItemId+1,
       useVerboseFeedback: true
     }
+  }
+
+  createChangeTaskTransaction = (item, task) => {
+    if(task != item.description){
+      let transaction = new ChangeTask_Transaction(this, item, task);
+      this.tps.addTransaction(transaction);
+    }
+  }
+
+  editTask = (item, task) => {
+    let oldTask = item.description;
+    item.description = task;
+    return oldTask;
   }
 
   // WILL LOAD THE SELECTED LIST
@@ -112,13 +129,34 @@ class App extends Component {
     localStorage.setItem("recent_work", toDoListsString);
   }
 
+  undo = () => {
+    if(this.tps.hasTransactionToUndo()){
+      this.tps.undoTransaction();
+    }
+    this.loadToDoList(this.state.currentList);
+    this.forceUpdate();
+  }
+
+  redo = () => {
+    if(this.tps.hasTransactionToRedo()){
+      this.tps.doTransaction();
+    }
+    this.loadToDoList(this.state.currentList);
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
       <div id="root">
         <Navbar />
         <div id="main">
-          <Workspace toDoListItems={items} />
+          <Workspace 
+            toDoListItems={items}
+            changeTaskTransactionCallback={this.createChangeTaskTransaction}
+            undoCallback={this.undo}
+            redoCallback={this.redo}
+            tps={this.tps}
+          />
           <LeftSidebar 
             toDoLists={this.state.toDoLists}
             loadToDoListCallback={this.loadToDoList}

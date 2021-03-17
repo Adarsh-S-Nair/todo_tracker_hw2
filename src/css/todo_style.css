@@ -71,6 +71,7 @@
 }
 
 .list-item-card {
+    word-wrap:break-word;
     border-bottom: solid;
     border-width: 1px;
     font-weight: bold;
@@ -96,6 +97,23 @@
     background-color: var(--swatch-contrast);
 }
 
+.disabled-button {
+    filter: invert(0.6);
+}
+
+.disabled-button:hover {
+    cursor: default;
+    background-color: transparent;
+}
+
+.enabled-button {
+    filter: invert(0);
+}
+
+.enabled-button:hover {
+    cursor: pointer;
+}
+
 #add-list-button {
     color: var(--swatch-accent);
 }
@@ -109,6 +127,16 @@
     font-weight: 700;
     color: var(--swatch-text);
     background-color: var(--swatch-complement);
+}
+
+[id^="input-task-"] {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    border: none;
+    font: var(--font-primary);
+    font-weight: 700;
+    color: var(--swatch-text);
+    background-color: var(--swatch-primary);
 }
 
 [id^="todo-list-item-"]:hover{

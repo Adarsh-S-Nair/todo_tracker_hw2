@@ -101,7 +101,6 @@ body {
 }
 
 .list-item-card {
-    padding-top:20px;
     height: 45px;
     display: flex;
     flex-direction: row;
@@ -109,6 +108,32 @@ body {
 
 .item-col {
     width:25%;
+}
+
+[id^="todo-list-item-"] {
+    word-wrap: break-word;
+    height: auto;
+}
+
+[id^="task-"] {
+    padding: 20px 0px;
+}
+
+[id^="date-"] {
+    padding: 20px 0px;
+}
+
+[id^="status-"] {
+    width: 25%;
+    padding: 20px 0px;
+}
+
+[id^="input-task-"] {
+    width: 25%;
+    word-wrap: break-word;
+    height: auto;
+    padding: 20px 0px;
+
 }
 
 .list-controls-col {
