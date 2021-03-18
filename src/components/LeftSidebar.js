@@ -13,6 +13,12 @@ class LeftSidebar extends Component {
     }
 
     render() {
+        let isCurrentList = false;
+        let addListStyle = "enabled-button";
+        if(this.props.currentList != null) {
+            isCurrentList = true;
+            addListStyle = "disabled-button";
+        }
         return (
             <div id="left-sidebar">
                 <div id="left-sidebar-header" class="section-header">
@@ -21,7 +27,8 @@ class LeftSidebar extends Component {
                         <AddBox 
                             id="add-list-button"
                             className="material-icons todo-button"
-                            onClick={this.handleAddNewList} />
+                            className={addListStyle}
+                            onClick={isCurrentList ? null : this.handleAddNewList} />
                     </span>
                 </div>
                 <div id="todo-lists-list">

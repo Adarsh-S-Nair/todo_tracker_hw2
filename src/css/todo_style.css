@@ -151,6 +151,24 @@
     background-color: var(--swatch-primary);
 }
 
+[id^="input-date"] {
+    font: var(--font-primary);
+    font-weight: 700;
+    color: var(--swatch-text);
+    background-color: var(--swatch-primary);
+}
+
+[id^="input-status"] {
+    font: var(--font-primary);
+    font-weight: 700;
+    color: var(--swatch-text);
+    background-color: var(--swatch-primary);
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 [id^="todo-list-item-"]:hover{
     background-color: var(--swatch-complement);
 }

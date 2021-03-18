@@ -101,7 +101,7 @@ class ToDoItem extends Component {
                                     description: task,
                                     editingDescription: false
                                 })
-                                this.props.workspace.forceUpdate();
+                                this.props.workspace.setState(this.props.workspace);
                             }}/>
         let dateElement = <div 
                             id={"date-"+listItem.id} 
@@ -125,7 +125,7 @@ class ToDoItem extends Component {
                                     due_date: date,
                                     editingDueDate: false
                                 })
-                                this.props.workspace.forceUpdate();
+                                this.props.workspace.setState(this.props.workspace);
                             }}/>;
 
         let statusElement = <div
@@ -148,7 +148,7 @@ class ToDoItem extends Component {
                                     status: status,
                                     editingStatus: false
                                 })
-                                this.props.workspace.forceUpdate();
+                                this.props.workspace.setState(this.props.workspace);
                             }}>
                                 <option value="complete">complete</option>
                                 <option value="incomplete">incomplete</option>

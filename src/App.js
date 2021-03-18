@@ -253,15 +253,15 @@ class App extends Component {
   undo = () => {
     if(this.tps.hasTransactionToUndo()){
       this.tps.undoTransaction();
+      this.setState(this.state);
     }
-    this.forceUpdate();
   }
 
   redo = () => {
     if(this.tps.hasTransactionToRedo()){
       this.tps.doTransaction();
+      this.setState(this.state);
     }
-    this.forceUpdate();
   }
 
   render() {
