@@ -151,3 +151,18 @@ body {
 .list-item-control {
     width: 20%;
 }
+
+#delete-confirmation{
+    position: absolute;
+    left: 40%;
+    top: 30%;
+    padding: 30px 20px;
+}
+
+.control-button {
+    margin: 0px 20px;
+}
+
+#popup-options * {
+    padding: 10px 20px;
+}

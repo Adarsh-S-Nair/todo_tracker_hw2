@@ -105,7 +105,7 @@
 }
 
 .todo-button:hover {
-    background-color: var(--swatch-contrast);
+    background-color: transparent;
 }
 
 .disabled-button {
@@ -155,6 +155,10 @@
     background-color: var(--swatch-complement);
 }
 
+.item-controls-disabled {
+    visibility:hidden;
+}
+
 .status-incomplete {
     color: var(--swatch-accent);
 }
@@ -165,4 +169,36 @@
 
 #add-item-button, #delete-list-button, #close-list-button {
     text-align: center;
+}
+
+#delete-confirmation {
+    user-select: none;
+    background-color: var(--swatch-complement);
+    box-sizing: border-box;
+    border: 1px solid;
+    z-index: 10;
+    text-align: center;
+    color: var(--swatch-text);
+    animation-name: modalanimation;
+    animation-duration: 0.4s;
+}
+
+@keyframes modalanimation {
+    from {top: -300px; opacity: 0}
+    to {top: 30%; opacity: 1}
+}
+
+#popup-options * {
+    user-select: none;
+    background: var(--swatch-primary);
+    color: var(--swatch-text);
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+    font-family: var(--font-primary);
+}
+
+#popup-options *:hover {
+    filter: invert(0.2);
 }

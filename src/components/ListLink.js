@@ -35,7 +35,7 @@ class ListLink extends Component {
 
     render() {
         let isCurrentList = false;
-        if(this.props.currentList.id == this.props.toDoList.id){
+        if(this.props.currentList !=null && this.props.currentList.id == this.props.toDoList.id){
             isCurrentList = true;
         }
         // DISPLAY WHERE WE ARE

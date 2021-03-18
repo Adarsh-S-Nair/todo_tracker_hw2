@@ -174,7 +174,7 @@ class ToDoItem extends Component {
                                             this.props.moveItemDownTransactionCallback(listItem);
                                             this.props.workspace.forceUpdate();
                                         }}/>
-                    <Close className='list-item-control todo-button'
+                    <Close className='list-item-control todo-button enabled-button'
                             onClick={() => {
                                 this.props.deleteItemTransactionCallback(listItem);
                                 this.props.workspace.forceUpdate();

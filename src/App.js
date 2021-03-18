@@ -7,6 +7,7 @@ import jsTPS from './common/jsTPS'
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
+import DeleteListModal from './components/DeleteListModal'
 
 // THESE ARE OUR TRANSACTIONS
 import ChangeTask_Transaction from './transactions/ChangeTask_Transaction'
@@ -60,10 +61,11 @@ class App extends Component {
     // SETUP OUR APP STATE
     this.state = {
       toDoLists: recentLists,
-      currentList: {items: []},
+      currentList: null,
       nextListId: highListId+1,
       nextListItemId: highListItemId+1,
-      useVerboseFeedback: true
+      useVerboseFeedback: true,
+      showDeleteListModal: false
     }
   }
 
@@ -163,6 +165,33 @@ class App extends Component {
     this.state.currentList.name = name;
   }
 
+  closeList = () => {
+    this.setState({
+      currentList: null
+    })
+  }
+
+  deleteList = () => {
+    let index = this.state.toDoLists.findIndex(i => i.id === this.state.currentList.id);
+    this.state.toDoLists.splice(index, 1);
+    this.setState({
+      currentList: null,
+      showDeleteListModal: false
+    })
+  }
+
+  showDeleteListModal = () => {
+    this.setState({
+      showDeleteListModal : true
+    })
+  }
+
+  hideDeleteListModal = () => {
+    this.setState({
+      showDeleteListModal : false
+    })
+  }
+
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
     this.tps.clearAllTransactions();
@@ -236,13 +265,14 @@ class App extends Component {
   }
 
   render() {
-    let items = this.state.currentList.items;
     return (
       <div id="root">
+        {this.state.showDeleteListModal ? <DeleteListModal
+                                            deleteListCallback={this.deleteList}
+                                            hideDeleteListModalCallback={this.hideDeleteListModal} /> : null}
         <Navbar />
         <div id="main">
           <Workspace 
-            toDoListItems={items}
             changeTaskTransactionCallback={this.createChangeTaskTransaction}
             changeDueDateTransactionCallback={this.createChangeDueDateTransaction}
             changeStatusTransactionCallback={this.createChangeStatusTransaction}
@@ -250,9 +280,12 @@ class App extends Component {
             moveItemDownTransactionCallback={this.createMoveDownTransaction}
             deleteItemTransactionCallback={this.createDeleteItemTransaction}
             addItemTransactionCallback={this.createAddItemTransaction}
+            closeListCallback={this.closeList}
+            deleteListCallback={this.showDeleteListModal}
             undoCallback={this.undo}
             redoCallback={this.redo}
             tps={this.tps}
+            currentList={this.state.currentList}
           />
           <LeftSidebar 
             toDoLists={this.state.toDoLists}
