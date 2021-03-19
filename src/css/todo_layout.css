@@ -1,6 +1,7 @@
 body {
     overflow: hidden;
 }
+
 #root {
     position:absolute;
     padding: 3px;
@@ -10,15 +11,14 @@ body {
 
 #navbar {
     position:absolute;
-    min-height: 40px;
     width: 98.5%;
-    height: 4vh;
+    height: 45px;
 }
 
 #title-div {
     position: absolute;
     user-select: none;
-    padding: 1vh 1vw;
+    padding: 10px;
 }
 
 #left-sidebar {
@@ -26,14 +26,14 @@ body {
     position:absolute;
     height:94%;
     width: 170px;
-    margin: 4.5vh 0vw;
+    margin: 50px 0vw;
 }
 
 #workspace {
     position:absolute;
     height:94%;
     width: calc(97.5% - 170px);
-    margin: 4.5vh 0vw;
+    margin: 50px 0vw;
     margin-left: 170px;
     grid-column: 2 span 1;
     grid-row: 2 span 1;
@@ -48,19 +48,18 @@ body {
     padding-top: 30px;
     height: 45px;
     top:3%;
-    width: 100%;
+    width: 155px;
     display: grid;
     grid-template-columns: 60% 40%;
     white-space: nowrap;
 }
 
 #add-list-button {
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 #todo-lists-list {
     overflow-x: auto;
-    position:absolute;
     text-align: center;
     height:90%;
     width:100%;
@@ -96,10 +95,11 @@ body {
 #todo-list-header-card {
     padding-top: 30px;
     height: 45px;
-    width: 98%;
+    width: 99%;
 }
 
 #todo-list-items-div {
+    width: 99%;
     height:96%;
     top:7%;
     display: flex;
@@ -109,7 +109,6 @@ body {
 .list-item-card {
     height: 45px;
     display: flex;
-    flex-direction: row;
 }
 
 .item-col {
@@ -122,27 +121,28 @@ body {
 }
 
 [id^="task-"] {
-    padding: 20px 0px;
+    padding: 30px 0px;
 }
 
 [id^="date-"] {
-    padding: 20px 0px;
+    padding: 30px 0px;
 }
 
 [id^="status-"] {
     width: 25%;
-    padding: 20px 0px;
+    padding: 30px 0px;
 }
 
 [id^="input-task-"] {
     width: 25%;
     word-wrap: break-word;
     height: auto;
-    padding: 20px 0px;
+    padding: 30px 0px;
 
 }
 
 .list-controls-col {
+    padding: 30px 0px;
     display: flex;
     flex-direction: row; 
     flex-wrap: nowrap;

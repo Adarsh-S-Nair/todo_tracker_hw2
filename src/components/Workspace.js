@@ -11,7 +11,32 @@ class Workspace extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showDeleteListModal: false
+            showDeleteListModal: false,
+            undoable: true,
+            redoable: true
+        }
+    }
+
+    componentDidUpdate = () => {
+        if(this.props.currentList != null) {
+            document.addEventListener ("keydown", (e) => {
+                if (e.ctrlKey  && e.key === "z" && this.state.undoable) {
+                    this.props.undoCallback();
+                    this.setState({undoable: false});
+                }
+                if(e.ctrlKey && e.key === "y" && this.state.redoable) {
+                    this.props.redoCallback();
+                    this.setState({redoable: false});
+                }
+            } );
+            document.addEventListener ("keyup", (e) => {
+                if(e.ctrlKey && e.key == "z" && !this.state.undoable) {
+                    this.setState({undoable: true});
+                }
+                if(e.ctrlKey && e.key == "y" && !this.state.redoable) {
+                    this.setState({redoable: true});
+                }
+            })
         }
     }
 
@@ -50,9 +75,9 @@ class Workspace extends Component {
         return (
             <div id="workspace">
                 <div id="todo-list-header-card" className="list-item-card">
-                    <div id="task-col-header" className="item-col">Task</div>
-                    <div id="date-col-header" className="item-col">Due Date</div>
-                    <div id="status-col-header" className="item-col">Status</div>
+                    <div className="item-col">Task</div>
+                    <div className="item-col">Due Date</div>
+                    <div className="item-col">Status</div>
                     <div className={itemControlsClass} display="flex" flexDirection="row" flexWrap="nowrap">
                         <Undo   id="undo-button" 
                                 className="list-item-control material-icons todo-button"
