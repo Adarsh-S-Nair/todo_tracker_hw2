@@ -98,7 +98,7 @@ class Workspace extends Component {
                                 onClick={this.props.closeListCallback}/>
                     </div>
                 </div>
-                {itemsDiv}
+                <div id="todo-items-list">{itemsDiv}</div>
                 <br />
             </div>
         );

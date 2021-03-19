@@ -11,7 +11,7 @@ body {
 
 #navbar {
     position:absolute;
-    width: 98.5%;
+    width: calc(100% - 25px);
     height: 45px;
 }
 
@@ -24,15 +24,15 @@ body {
 #left-sidebar {
     text-align: center;
     position:absolute;
-    height:94%;
+    height: calc(100% - 75px);
     width: 170px;
     margin: 50px 0vw;
 }
 
 #workspace {
     position:absolute;
-    height:94%;
-    width: calc(97.5% - 170px);
+    height: calc(100% - 75px);
+    width: calc(100% - 210px);
     margin: 50px 0vw;
     margin-left: 170px;
     grid-column: 2 span 1;
@@ -64,6 +64,10 @@ body {
     height:90%;
     width:100%;
     top: 8%;
+}
+
+#todo-items-list {
+    overflow-x: auto;
 }
 
 .current-list {
@@ -149,6 +153,7 @@ body {
 }
 
 .list-item-control {
+    margin: 0px 1vw;
     width: 20%;
 }
 
