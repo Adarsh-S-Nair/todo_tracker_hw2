@@ -50,6 +50,7 @@
 #left-sidebar {
     word-wrap: break-word;
     background-color: var(--swatch-complement);
+    box-shadow: 2px 2px 2px var(--swatch-primary); 
     color: rgb(233,237,240);
 }
 
@@ -78,6 +79,7 @@
 
 #workspace {
     background-color: var(--swatch-primary);
+    box-shadow: 2px 2px 2px var(--swatch-primary); 
     color: rgb(233,237,240);
 }
 
@@ -237,4 +239,14 @@
 
 #popup-options *:hover {
     filter: invert(0.2);
+}
+
+.overlay {
+    background-color:#00000077;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    top: 0px;
+    left: 0px;
 }

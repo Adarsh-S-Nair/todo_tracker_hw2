@@ -35,7 +35,7 @@ class App extends Component {
     this.tps = new jsTPS();
 
     // CHECK TO SEE IF THERE IS DATA IN LOCAL STORAGE FOR THIS APP
-    let recentLists = localStorage.getItem("recentLists");
+    let recentLists = localStorage.getItem("toDoLists");
     console.log("recentLists: " + recentLists);
     if (!recentLists) {
       recentLists = JSON.stringify(testData.toDoLists);
@@ -67,6 +67,17 @@ class App extends Component {
       useVerboseFeedback: true,
       showDeleteListModal: false
     }
+  }
+
+  componentWillMount() {
+    localStorage.getItem('toDoLists') && this.setState({
+      toDoLists: JSON.parse(localStorage.getItem('toDoLists'))
+    })
+  }
+
+  componentWillUpdate() {
+    console.log("UPDATING FILE");
+    localStorage.setItem('toDoLists', JSON.stringify(this.state.toDoLists));
   }
 
   createChangeTaskTransaction = (item, task) => {
@@ -113,18 +124,21 @@ class App extends Component {
   editTask = (item, task) => {
     let oldTask = item.description;
     item.description = task;
+    this.setState(this.state);
     return oldTask;
   }
 
   editDate = (item, date) => {
     let oldDate = item.due_date;
     item.due_date = date;
+    this.setState(this.state);
     return oldDate;
   }
 
   editStatus = (item, status) => {
     let oldStatus = item.status;
     item.status = status;
+    this.setState(this.state);
     return oldStatus;
   }
 
@@ -133,6 +147,7 @@ class App extends Component {
     let temp = this.state.currentList.items[index-1];
     this.state.currentList.items[index-1] = item;
     this.state.currentList.items[index] = temp;
+    this.setState(this.state);
   }
 
   moveItemDown = (item) => {
@@ -140,12 +155,13 @@ class App extends Component {
     let temp = this.state.currentList.items[index+1];
     this.state.currentList.items[index+1] = item;
     this.state.currentList.items[index] = temp;
+    this.setState(this.state);
   }
 
   deleteItem = (item) => {
     let index = this.state.currentList.items.findIndex(i => i.id === item.id);
     this.state.currentList.items.splice(index, 1);
-    console.log("Index: " + index);
+    this.setState(this.state);
     return index;
   }
 
@@ -157,12 +173,13 @@ class App extends Component {
       item = this.makeNewToDoListItem();
       this.state.currentList.items.splice(this.state.currentList.items.length, 0, item);
     }
-    this.forceUpdate();
+    this.setState(this.state);
     return item;
   }
 
   changeListName = (name) => {
     this.state.currentList.name = name;
+    this.setState(this.state);
   }
 
   closeList = () => {
@@ -219,7 +236,7 @@ class App extends Component {
       toDoLists: newToDoListsList,
       currentList: newToDoList,
       nextListId: this.state.nextListId+1
-    }, this.afterToDoListsChangeComplete);
+    });
   }
 
   makeNewToDoList = () => {
@@ -241,14 +258,6 @@ class App extends Component {
     return newToDoListItem;
   }
 
-  // THIS IS A CALLBACK FUNCTION FOR AFTER AN EDIT TO A LIST
-  afterToDoListsChangeComplete = () => {
-    console.log("App updated currentToDoList: " + this.state.currentList);
-
-    // WILL THIS WORK? @todo
-    let toDoListsString = JSON.stringify(this.state.toDoLists);
-    localStorage.setItem("recent_work", toDoListsString);
-  }
 
   undo = () => {
     if(this.tps.hasTransactionToUndo()){
