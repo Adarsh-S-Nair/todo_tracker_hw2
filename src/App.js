@@ -17,7 +17,6 @@ import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction'
 import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction'
 import DeleteItem_Transaction from './transactions/DeleteItem_Transaction'
 import AddItem_Transaction from './transactions/AddItem_Transaction'
-import { TransferWithinAStationSharp } from '@material-ui/icons';
 
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
@@ -227,6 +226,7 @@ class App extends Component {
   }
 
   addNewList = () => {
+    this.tps.clearAllTransactions();
     let newToDoListInList = [this.makeNewToDoList()];
     let newToDoListsList = [...newToDoListInList, ...this.state.toDoLists];
     let newToDoList = newToDoListInList[0];
